@@ -25,16 +25,19 @@ public class FlockManager : MonoBehaviour
         allFish = new GameObject[numFish];
         for (int i = 0; i < numFish; i++)
         {
+            //define a posição e rumo que cada peixe criado na matriz deve ter
             Vector3 pos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x),
                 Random.Range(-swinLimits.y, swinLimits.y),
                 Random.Range(-swinLimits.z, swinLimits.z));
-            allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.identity);
-            allFish[i].GetComponent<Flock>().myManager = this;
+
+            allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.identity); //define os parâmetros para cada peixe criado
+            allFish[i].GetComponent<Flock>().myManager = this; //linka o scrip Flcok em cada peixe
         }
         goalPos = this.transform.position;
     }
-    private void Update()
+    void Update()
     {
+        goalPos = this.transform.position; //define a posição "final" do cardume 
         if (Random.Range(0, 100) < 10) 
             goalPos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x), 
                 Random.Range(-swinLimits.y, swinLimits.y), Random.Range(-swinLimits.z, swinLimits.z));
